@@ -45,8 +45,6 @@ def creacionEstudiantes():
 
 
 
-CreacionDB()
 
-creacionEstudiantes()
 
 
