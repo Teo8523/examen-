@@ -1,4 +1,4 @@
-estudiantes ={}
+
 
 import json
 
@@ -8,20 +8,33 @@ def menu():
         ====== Gestion de Notas Acme School ======
         ==========================================
         =                                        =
-        =   1. Login                             =
-        =   2. Registro de usuarios              =
-        =   3. Registro de estudiantes           =
-        =   4. Creacion de cursos                =
-        =   5. Calificar                         =
-        =   6. Reporte de calificaciones         =
+        =   1. Registro de usuarios              =
+        =   2. Registro de estudiantes           =
+        =   3. Creacion de cursos                =
+        =   4. Calificar                         =
+        =   5. Reporte de calificaciones         =
         =   0. Salir                             =
         =                                        =
         ==========================================
             """)
+    opc = input("que desea hacer -->")
+    return opc
 
 
 
-def registro_Usuarios(usuarios):
+def login(): 
+    usuarios = traerInfo("usuariosDB.json")
+    print("===== I N G R E S O =======")
+    email = input(">> Ingresa tu correo electronico: ")
+    contraseña = input(">> Ingresa contraseña")
+    for usuario in usuarios: 
+        if contraseña == usuario["contraseña"] and  email == usuario["email"]:
+            print("login exitoso")
+            return True
+    return False
+
+def registro_Usuarios():
+    usuarios = traerInfo("usuariosDB.json")
     numero_Identificacion = int(input("Ingrese su numero de identificacion"))
     nombre = input("Ingrese su nombre")
     try:
@@ -34,46 +47,48 @@ def registro_Usuarios(usuarios):
         return
     email_Corporativo = input("Ingrese su correo corporativo")
     contrasenia = str(input("Ingrese su contraseña"))
+    usuarios.append({
+        "numero_Identificacion": numero_Identificacion,
+        "nombre":nombre,
+        "cargo":cargo,
+        "email":email_Corporativo,
+        "contraseña":contrasenia
+    })
 
-    #if numero_Identificacion not in usuarios:
-    #usuarios[numero_Identificacion] = {
-    # "nombre":nombre,
-    # "cargo":cargo,
-    # "email":email_Corporativo,
-    # "contraseña":contrasenia,
-    # }
+    guardarInfo("usuariosDB.json",usuarios)
 
     print(f"Se registro correctamente al usuario {nombre}")
     return usuarios
 
-    # else:
-        #print("El usuario ya se encuentra registrado")
-        #return usuarios
 
-def CreacionDB():
+def CreacionDB2():
   try:
-    file = open("estudiantesDB.json", "r")
-    file.close
+    file = open("usuariosDB.json", "r")
+    file.close()
     return file
   except FileNotFoundError:
-    file = open("estudiantesDB.json", "w")
+    file = open("usuariosDB.json", "w")
     file.write("""[{
-        
+       "numero_Identificacion": 12312,
+        "nombre": "pepe",
+        "cargo": "Administrador",
+        "email": "pepe@acme.com",
+        "contrase\u00f1a": "asdf" 
     }]""")
     file.close
 
-def traerInfo():
-  file = open("estudiantesDB.json", "r")
+def traerInfo(archivo,):
+  file = open(archivo, "r")
   empleados = json.load(file)
   return empleados
 
-def guardarInfo(datos):
-  file = open("estudiantesDB.json", "w")
+def guardarInfo(archivo,datos):
+  file = open(archivo, "w")
   json.dump(datos,file, indent=4)
   file.close()
 
 def creacionEstudiantes():
-    estudiantes = traerInfo()
+    estudiantes = traerInfo("estudiantesDB.json")
     try:
         numeroDeIndentificacion = int(input("ingrese el numero de indentificacion del estudiante -->"))
     except ValueError:
@@ -91,13 +106,10 @@ def creacionEstudiantes():
         "fechaDeNacimiento": fechaDeNacimiento,
     })
 
-    guardarInfo(estudiantes)
+    guardarInfo("estudiantesDB.json",estudiantes)
 
 #....
 
-CreacionDB()
-
-creacionEstudiantes()
 def inscripcion():
      if estudiante in estudiantes:
           curso[estudiantes].append(estudiante)
@@ -138,5 +150,3 @@ def reporte():
          print("==== R E P O R T E  D E  N O T A S =====")
         
 
-while True:
-    creacion_curso()

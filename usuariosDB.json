@@ -1,0 +1,23 @@
+[
+    {
+        "numero_Identificacion": 12312,
+        "nombre": "pepe",
+        "cargo": "Administrador",
+        "email": "pepe@acme.com",
+        "contrase\u00f1a": "asdf"
+    },
+    {
+        "numero_Identificacion": 21301234,
+        "nombre": "juan",
+        "cargo": "Profesor",
+        "email": "asdf@fas",
+        "contrase\u00f1a": "asdfasdf"
+    },
+    {
+        "numero_Identificacion": 123124235,
+        "nombre": "diego",
+        "cargo": "profesor",
+        "email": "asdfa@fasdfae",
+        "contrase\u00f1a": "asdfawr"
+    }
+]

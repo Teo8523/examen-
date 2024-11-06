@@ -7,9 +7,7 @@ def CreacionDB():
     return file
   except FileNotFoundError:
     file = open("estudiantesDB.json", "w")
-    file.write("""[{
-        
-    }]""")
+    file.write("[]")
     file.close
 
 def traerInfo():
